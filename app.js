@@ -298,6 +298,7 @@ app.get('/', function (req, res) {
 app.get('/dashboard', authenticationMiddleware(), function (req, res, next) {
   if(req.user){
     var dquery = "SELECT COUNT(*) as pending FROM enquiries WHERE amount = 0;";
+    
   con.query(dquery, function(err, result){
   res.render('pages/dashboard', {
     siteTitle: siteTitle,
