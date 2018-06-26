@@ -1,0 +1,175 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1></h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- <div class="row" style="padding-bottom: 10px;">
+                <div class="col-lg-12">
+                    <a href="/addenquiry" class="btn btn-success btn-lg"><i class="fa fa-plus fa-fw"></i>Add New Enquiry</a>
+                    </div>
+            </div> -->
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h4>
+                                <strong> 
+                                    Salesorder # SO/LK/<%= moment(item.po_date).format('YY'); %>/<%= item.so_num %>
+                                </strong>
+                            </h4>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <a href="/salesorder" class="btn btn-lg btn-primary" style="float:right ;">
+                                <i class="fa fa-times fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form action="/editorder/<%= item[0].so_num %>" method="post">
+
+                        <div class="panel-info">
+                            <div class="panel-heading">
+                                Project Details
+                            </div>
+                            <div class="panel-body">
+                                    
+                                <div class="row">
+                                        <div class="col-xs-2 col-sm-2 form-group">
+                                                <label for="job_ref">Job No.</label>
+                                                <select name="job_ref" value="<%= item[0].job_ref %>" class="form-control">
+                                                    <option>
+                                                        <%= item[0].job_ref %>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                    <div class="col-xs-4 col-sm-4 form-group">
+                                        <label for="project">Project Name</label>
+                                        <input name="project" value="<%= item[0].project %>" class="form-control">
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 form-group">
+                                        <label for="customer">Customer Name</label>
+                                        <input name="customer" value="<%= item[0].customer %>" class="form-control">
+                                    </div>
+                                    <div class="col-xs-2 col-sm-2 form-group">
+                                        <label for="sales_per">Sales Engineer</label>
+                                        <select name="sales_per" value="<%= item[0].sales_per %>" class="form-control">
+                                            <option>
+                                                <%= item[0].sales_per %>
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                
+
+                <div class="panel-info">
+                    <div class="panel-heading">Order Details</div>
+                    <div class="panel-body">
+                            <div class="row">
+                                    <div class="col-xs-2 col-sm-2 form-group">
+                                            <label for="order_date">Order Date</label>
+                                            <input type="date"  name="order_date" value="<%= item[0].order_date %>" class="form-control">
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 form-group">
+                                                <label for="po_date">PO Date</label>
+                                                <input type="date" name="po_date" value="<%= item[0].po_date %>" class="form-control">
+                                            </div>
+                                            <div class="col-xs-2 col-sm-2 form-group">
+                                                    <label for="po_num">Purchase Order Number</label>
+                                                    <input name="po_num" value="<%= item[0].po_num %>" class="form-control">
+                                                </div>
+                                </div>
+
+                        <div class="row">
+                            <div class="col-xs-2 col-sm-2 form-group">
+                                <label for="qty">Total Quantity</label>
+                                <input type="number"  name="qty" value="<%= item[0].qty %>" class="form-control">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 form-group">
+                                <label for="amount">Net Quote Value (INR)</label>
+                                <input  name="amount" value="<%= item[0].amount %>" class="form-control">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 form-group">
+                                <label for="discount">Discount</label>
+                                <input  name="discount" value="<%= item[0].discount %>" class="form-control">
+                            </div>
+                            <div class="col-xs-6 col-sm-6 form-group">
+                                    <label for="pay_term">Payment Terms</label>
+                                    <input name="pay_term" class="form-control" value="<%= item[0].pay_term %>">               
+                            </div>
+                        </div>
+                        <div class="row">
+                                <div class="col-xs-2 col-sm-2 form-group">
+                                        <label for="advance_amt">Advance Amount</label>
+                                        <input name="advance_amt" value="<%= item[0].advance_amt %>" class="form-control">
+                                    </div>
+                            <div class="col-xs-2 col-sm-2 form-group">
+                                <label for="deli_date">Delivery Commited Date</label>
+                                <input type="date" name="deli_date" value="<%= item[0].deli_date %>" class="form-control">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 form-group">
+                                <label for="app_date">GAD Approval Date</label>
+                                <input type="date" name="app_date" value="<%= item[0].app_date %>" class="form-control">
+                            </div>
+                            <div class="col-xs-2 col-sm-2 form-group">
+                                <label for="po_file">PO File</label>
+                                <input type="file" name="po_file" value="<%= item[0].po_file %>" class="form-control">
+                            </div>
+                            
+                            <div class="col-xs-4 col-sm-4 form-group">
+                                    <label for="lead_time">Delivery Lead Time</label>
+                                    <input name="lead_time" value="<%= item[0].lead_time %>" class="form-control">
+                                </div>
+                                
+                        </div>
+                        <div class="row">
+                                <div class="col-xs-6 col-sm-6 form-group">
+                                    <label for="remarks">Comments</label>
+                                    <textarea name="remarks" class="form-control" value="<%= item[0].remarks %>" rows="4" cols="50"></textarea>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-1 col-sm-1 form-group">
+                <label></label>
+                <input type="submit" name="submit" value="Update" class="btn btn-outline btn-success btn-block" />
+            </div>
+
+            <div class="col-xs-1 col-sm-1 form-group">
+                <label></label>
+                <a href="/salesorder" class="btn btn-outline btn-danger btn-block">Close</a>
+            </div>
+        </div>
+
+
+
+        </form>
+
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+</div>
+<!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+</div>

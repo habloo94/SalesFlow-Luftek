@@ -1,0 +1,83 @@
+<div id="page-wrapper" style="
+margin-left: 0px;">
+    <div class="row">
+        <div class="col-lg-12">
+                
+            <h2 class="page-header">Welcome! Mr.<%= user.user_id %> </h2>
+            
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                    <i class="fa fa-th-list fa-fw fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">
+                                <%= items.pending %>
+                                </div>
+                                <div>Pending Enquiries</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                                <a href="/enquiry"><span class="pull-left">View Enquiry List</span></a>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-shopping-cart fa-fw fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge"><%= items.total %></div>
+                                <div>Recent Orders</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                                <a href="/salesorder"><span class="pull-left">View Order List</span></a>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-cubes fa-fw fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge"></div>
+                                <div>Ready for Dispatch</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                                <a href="/dispatch"><span class="pull-left">View Dispatch List</span></a>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+           
+            </div>
+        </div>
+</div>

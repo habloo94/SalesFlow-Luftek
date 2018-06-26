@@ -1,0 +1,152 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <h3>Salesorder # SO/LK/<%= item[0].so_num %>/<%= moment(item[0].order_date).format('YY'); %>
+                            </h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="/salesorder" class="btn btn-lg btn-primary" style="float:right ;">
+                                <i class="fa fa-times fa-fw"></i>
+                            </a>
+                            <a href="/salesorder" class="btn btn-lg btn-primary" style="float:right ;">
+                                <i class="fa fa-print fa-fw"></i>
+                            </a>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <h3 class="page-header">Project Details</h3>
+                    <div class="row">
+                            
+                            <div class="col-lg-3 col-sm-3">
+                                    <h4>
+                                        <i>Job No. :</i>
+                                        <%= item[0].job_ref %>
+                                    </h4>
+                                </div>
+                        <div class="col-lg-3 col-sm-3">
+                            <h4>
+                                <i>Project Name :</i>
+                                <%= item[0].project %>
+                            </h4>
+                        </div>
+                        <div class="col-lg-3 col-sm-3">
+                                <h4>
+                                    <i>Customer Name :</i>
+                                    <%= item[0].customer %>
+                                </h4>
+                            </div>
+                            <div class="col-lg-3 col-sm-3">
+                                    <h4>
+                                        <i>Sales Person :</i>
+                                        <%= item[0].sales_engg %>
+                                    </h4>
+                                </div>
+
+                    </div>
+                    <h3 class="page-header">Order Details</h3>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h4>
+                                <i>Order Entry Date :</i>
+                                <%= item[0].order_date %>
+                            </h4>
+                        </div>
+                        <div class="col-lg-3">
+                            <h4>
+                                <i>Purchase Order Date :</i>
+                                <%= item[0].po_date %>
+                            </h4>
+                        </div>
+                        <div class="col-lg-3">
+                                <h4>
+                                    <i>Purchase Order No. :</i>
+                                    <%= item[0].po_num %>
+                                </h4>
+                            </div>
+                            <div class="col-lg-3">
+                                    <h4>
+                                        <i>Payment Terms :</i>
+                                        <%= item[0].pay_term %>
+                                    </h4>
+                           </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-lg-4">
+                                <h4>
+                                    <i>Net Quantity :</i>
+                                    <%= item[0].qty %>
+                                </h4>
+                            </div>
+                            <div class="col-lg-4">
+                                <h4>
+                                    <i>Order Value :</i>
+                                    <%= currencyFormatter.format(item[0].amount, { code: 'INR' }); %>
+                                </h4>
+                            </div>
+                            <div class="col-lg-4">
+                                    <h4>
+                                        <i>Discount :</i>
+                                        <%= item[0].discount %>
+                                    </h4>
+                                </div>
+                                <div class="col-lg-4">
+                                        <h4>
+                                            <i>Delivery Term :</i>
+                                            <%= item[0].lead_time %>
+                                        </h4>
+                                    </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <h4>
+                                <i>Committed Delivery Date :</i>
+                                <%= item[0].deli_date %>
+                            </h4>
+                        </div>
+                        <div class="col-lg-4">
+                            <h4>
+                                <i>GAD Approval Date :</i>
+                                <%= item[0].app_date %>
+                                
+                            </h4>
+                        </div>
+                        <div class="col-lg-4">
+                                <h4>
+                                    <i>Discount :</i>
+                                    <%= currencyFormatter.format(item[0].advance_amt, { code: 'INR' }); %>
+                                </h4>
+                            </div>
+                           
+                    </div>
+                    
+                    <h4 class="page-header"></h4>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h3>Comments :
+                                <%= item[0].remarks %>
+                            </h3>
+                        </div>
+                    </div>
+                    <h4 class="page-header"></h4>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

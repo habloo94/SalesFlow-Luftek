@@ -1,0 +1,82 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1></h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <h3>Enquiry #
+                                <%= item[0].job_ref %>
+                            </h3>
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="/enquiry" class="btn btn-lg btn-primary" style="float:right ;">
+                                <i class="fa fa-times fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <form action="/revenquiry/<%= item[0].job_ref %>" method="post">
+                        <div class="panel-info">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 form-group">
+                                        Revision No. <select name="rev_num" value="" class="form-control">
+                                            <option>R1</option>
+                                            <option>R2</option>
+                                            <option>R3</option>
+                                            <option>R4</option>
+                                            <option>R5</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 form-group">
+                                        <label for="sent_date_r">Revision Sent Date</label>
+                                        <input type="date" name="sent_date_r" value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 form-group">
+                                        <label for="amount_r">Revised Net Quote Value (INR)</label>
+                                        <input name="amount_r" value="" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-8 col-sm-8 form-group">
+                                        <label for="note">Notes</label>
+                                        <textarea name="note" class="form-control" value="" rows="4" cols="50">
+                                                </textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-1 col-sm-1 form-group">
+                                        <label></label>
+                                        <input type="submit" name="submit" value="Add" class="btn btn-outline btn-success btn-block" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.panel-body -->
+</div>
+<!-- /.panel -->
+</div>
+<!-- /.col-lg-12 -->
