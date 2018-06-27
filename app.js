@@ -15,7 +15,7 @@ var currencyFormatter = require('currency-formatter');
 var numeral = require('numeral');
 
 http.createServer(app).listen(process.env.PORT);
-app.listen(7310);
+app.listen(7430);
 
 
 
@@ -269,19 +269,27 @@ const baseorderURL = "http://sales.luftek.in/salesorder";
 
 const lbaseorderURL = "http://localhost:7080/salesorder";
 
-//Dashboard
-
-
 
 app.get('/', function (req, res) {
   if(req.user){
-    con.query("SELECT COUNT(*) as pending FROM enquiries WHERE amount = 0", function(err, result){
-    res.render('pages/dashboard', {
-      siteTitle: siteTitle,
-      moment: moment,
-      pageTitle: "Dashboard",
-      items: result[0],
-      user : req.user});
+    con.query(dquery, function(err, result){
+      if (err) {throw err;}
+  else{
+    con.query(dsquery, function(err, result1){
+      if (err) {throw err;}
+  else{
+      res.render('pages/dashboard', {
+        siteTitle: siteTitle,
+        moment: moment,      
+        currencyFormatter: currencyFormatter,
+        pageTitle: "Dashboard",
+        sales:result1[0].total,
+        items: result[0].pending,
+        user : req.user
+        });
+      }
+    });
+  }
     });
   }
   else{
@@ -295,22 +303,35 @@ app.get('/', function (req, res) {
 });
 
 
+//Dashboard
+var dquery = "SELECT COUNT(*) as pending FROM enquiries WHERE amount = 0";
+var dsquery = "SELECT count(*) as recent_order FROM salesorder_b WHERE po_date >= NOW()- INTERVAL 14 DAY";
+
 app.get('/dashboard', authenticationMiddleware(), function (req, res, next) {
   if(req.user){
-    var dquery = "SELECT COUNT(*) as pending FROM enquiries WHERE amount = 0;";
-    
   con.query(dquery, function(err, result){
-  res.render('pages/dashboard', {
-    siteTitle: siteTitle,
-    moment: moment,
-    pageTitle: "Dashboard",
-    items: result[0],
-    user : req.user
+    if (err) {throw err;}
+else{
+  con.query(dsquery, function(err, result1){
+    if (err) {throw err;}
+else{
+    res.render('pages/dashboard', {
+      siteTitle: siteTitle,
+      moment: moment,      
+      currencyFormatter: currencyFormatter,
+      pageTitle: "Dashboard",
+      sales:result1[0].recent_order,
+      items: result[0].pending,
+      user : req.user
+      });
+    }
   });
+}
   });
 }
   else{res.redirect(mainURL);}
 });
+
 
 app.get('/enquiry', authenticationMiddleware(), function (req, res) {
   var equery= "SELECT * FROM enquiries ORDER BY job_ref DESC";
@@ -327,18 +348,27 @@ app.get('/enquiry', authenticationMiddleware(), function (req, res) {
   });
 });
 
+//SALES ORDER
+
+var squery = "SELECT * FROM salesorder_b ORDER BY so_num DESC";
+var squery1 = "SELECT SUM(amount) as total FROM salesorder_b";
 app.get('/salesorder', authenticationMiddleware(), function (req, res) {
-  var squery = "SELECT * FROM salesorder_b ORDER BY so_num DESC";
   con.query(squery, function (err, result) {
-    res.render('pages/salesorder', {
-      siteTitle: siteTitle,
-      moment: moment,
-      numeral: numeral,
-      currencyFormatter: currencyFormatter,
-      pageTitle: "Sales Order",
-      items: result,
-      user : req.user
+    if (err) {throw err;}
+    else{
+      con.query(squery1, function (err,result1){
+      res.render('pages/salesorder', {
+        siteTitle: siteTitle,
+        moment: moment,
+        numeral: numeral,
+        currencyFormatter: currencyFormatter,
+        pageTitle: "Sales Order",
+        sales:result1[0].total,
+        items: result,
+        user : req.user
+      });
     });
+    }
   });
 });
 

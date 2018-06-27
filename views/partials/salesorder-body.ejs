@@ -1,4 +1,4 @@
-    <div id="page-wrapper">
+  
         <div class="row">
             <div class="col-lg-12">
                     <h2 class="page-header">Welcome! Mr.<%= user.user_id %> </h2>
@@ -20,7 +20,7 @@
                                 <h4>
                                 Sales Order List</h4>
                             </div>
-                            <div class="col-sm-8"></div>
+                            <div class="col-sm-4"><h4 align="right">Net Booking Value : <%= currencyFormatter.format(sales, { code: 'INR' }); %></h4></div>
                         </div>
                             
                     </div>
