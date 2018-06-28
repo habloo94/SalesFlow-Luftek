@@ -332,27 +332,60 @@ else{
   else{res.redirect(mainURL);}
 });
 
-
+//Enquiry
+var equery= "SELECT * FROM enquiries ORDER BY job_ref DESC";
+var equery1= "SELECT job_ref AS compare FROM enquiries WHERE enquiries.job_ref IN (SELECT job_ref FROM salesorder_b WHERE salesorder_b.job_ref = enquiries.job_ref);"
 app.get('/enquiry', authenticationMiddleware(), function (req, res) {
-  var equery= "SELECT * FROM enquiries ORDER BY job_ref DESC";
-  con.query(equery, function (err, result) {
-    res.render('pages/enquiry', {
-      siteTitle: siteTitle,
-      moment: moment,
-      numeral: numeral,
-      currencyFormatter: currencyFormatter,
-      pageTitle: "Enquiry List",
-      items: result,
-      user : req.user
-    });
+
+  con.query(equery, function (err, result1) {
+    if(err) {throw err;}
+    else{
+      con.query(equery1, function(err, result2){
+        if(err){throw err;}
+        else{
+          res.render('pages/enquiry', {
+            siteTitle: siteTitle,
+            moment: moment,
+            numeral: numeral,
+            currencyFormatter: currencyFormatter,
+            pageTitle: "Enquiry List",
+            items: result1,
+            order:result2,
+            user : req.user
+          });
+        }
+      });
+    } 
   });
 });
 
 //SALES ORDER
 
 var squery = "SELECT * FROM salesorder_b ORDER BY job_ref DESC";
+var azequery = "SELECT * FROM salesorder_b WHERE sales_per = 'Azeem';";
+var azequery1 = "SELECT SUM(amount) as total FROM salesorder_b WHERE sales_per = 'Azeem';";
 var squery1 = "SELECT SUM(amount) as total FROM salesorder_b";
 app.get('/salesorder', authenticationMiddleware(), function (req, res) {
+  if(req.user.user_id=="Azeem"){
+    con.query(azequery, function (err, result) {
+      if (err) {throw err;}
+      else{
+        con.query(azequery1, function (err,result1){
+        res.render('pages/salesorder', {
+          siteTitle: siteTitle,
+          moment: moment,
+          numeral: numeral,
+          currencyFormatter: currencyFormatter,
+          pageTitle: "Sales Order",
+          sales:result1[0].total,
+          items: result,
+          user : req.user
+        });
+      });
+      }
+    });
+  }
+  else{
   con.query(squery, function (err, result) {
     if (err) {throw err;}
     else{
@@ -369,7 +402,7 @@ app.get('/salesorder', authenticationMiddleware(), function (req, res) {
       });
     });
     }
-  });
+  });}
 });
 
 //Add New Event
