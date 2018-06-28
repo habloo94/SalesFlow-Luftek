@@ -47,7 +47,7 @@
                             <tbody class="table-bordered">
                                     <% items.forEach(function(item){ %>
                                         <tr>
-                                                <td>SO/LK/<%= moment(item.po_date).format('YY'); %>/<%= item.so_num %></td>
+                                                <td>LK/<%= moment(item.po_date).format('YY'); %>/<%= item.job_ref %></td>
                                                 <td><%= item.job_ref %></td>
                                                 <td><%= item.project %></td>
                                                 <td><%= item.customer %></td>
@@ -57,8 +57,8 @@
                                                 <td><%= moment(item.po_date).format('DD-MMM-YY'); %></td>
                                                 <td><%= moment(item.deli_date).format('DD-MMM-YY'); %></td>
                                                 <td><%= item.sales_per %></td>                                                <td >
-                                                    <a href="/editorder/<%= item.so_num %>" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                                                    <a href="/vieworder/<%= item.so_num %>" class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></a>
+                                                    <a href="/editorder/<%= item.job_ref %>" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
+                                                    <a href="/vieworder/<%= item.job_ref %>" class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></a>
                                                 </td>
                                             </tr>
                                             <% }); %>

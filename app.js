@@ -350,7 +350,7 @@ app.get('/enquiry', authenticationMiddleware(), function (req, res) {
 
 //SALES ORDER
 
-var squery = "SELECT * FROM salesorder_b ORDER BY so_num DESC";
+var squery = "SELECT * FROM salesorder_b ORDER BY job_ref DESC";
 var squery1 = "SELECT SUM(amount) as total FROM salesorder_b";
 app.get('/salesorder', authenticationMiddleware(), function (req, res) {
   con.query(squery, function (err, result) {
@@ -420,8 +420,9 @@ app.post('/addenquiry', function (req, res) {
 });
 
 app.post('/addorder', function (req, res) {
-  var query = "INSERT INTO `salesorder_b`(job_ref,  project, customer, sales_per, po_num, po_date, qty, amount,  discount, advance_amt,  deli_date, pay_term, lead_time, remarks) VALUES (";
+  var query = "INSERT INTO `salesorder_b`(job_ref, order_date, project, customer, sales_per, po_num, po_date, qty, amount,  discount, advance_amt,  deli_date, pay_term, lead_time, remarks) VALUES (";
   query += " '" + req.body.job_ref + "',";
+  query += " '" + req.body.order_date + "',";
   query += " '" + req.body.project + "',";
   query += " '" + req.body.customer + "',";
   query += " '" + req.body.sales_per + "',";
@@ -484,7 +485,7 @@ app.get('/booking/:id', authenticationMiddleware(), function (req, res) {
 });
 
 app.get('/editorder/:id', authenticationMiddleware(), function (req, res) {
-  con.query("SELECT * FROM salesorder_b WHERE so_num = '" + req.params.id + "'", function (err, result) {
+  con.query("SELECT * FROM salesorder_b WHERE job_ref = '" + req.params.id + "'", function (err, result) {
     result[0].po_date = dateformat(result[0].po_date, "yyyy-mm-dd");
     res.render('pages/editorder', {
       siteTitle: siteTitle,
@@ -571,7 +572,7 @@ app.get('/viewenquiry/:id', function (req, res) {
 });
 
 app.get('/vieworder/:id', function (req, res) {
-  con.query("SELECT * FROM salesorder_b  WHERE so_num = '" + req.params.id + "'", function (err, result) {
+  con.query("SELECT * FROM salesorder_b  WHERE job_ref = '" + req.params.id + "'", function (err, result) {
     result[0].po_date = dateformat(result[0].po_date, "dd-mmm-yy");
     if(result[0].order_date!=null){result[0].order_date = dateformat(result[0].order_date, "dd-mmm-yy");}
     res.render('pages/vieworder', {

@@ -21,7 +21,7 @@
                         <div class="col-sm-8">
                             <h4>
                                 <strong> 
-                                    Salesorder # SO/LK/<%= moment(item.po_date).format('YY'); %>/<%= item.so_num %>
+                                    Salesorder # LK/<%= moment(item.po_date).format('YY'); %>/<%= item.job_ref %>
                                 </strong>
                             </h4>
                         </div>
@@ -35,7 +35,7 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <form action="/editorder/<%= item[0].so_num %>" method="post">
+                    <form action="/editorder/<%= item[0].job_ref %>" method="post">
 
                         <div class="panel-info">
                             <div class="panel-heading">
