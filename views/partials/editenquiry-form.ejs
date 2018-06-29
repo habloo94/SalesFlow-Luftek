@@ -37,7 +37,17 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <form action="/editenquiry/<%= item[0].job_ref %>" method="post">
-                            
+                            <div class="row">
+                                    <div class="col-xs-4 col-sm-4 form-group">
+                                            <label for="status">Status</label>
+                                            <select name="status" value="<%= item[0].status %>" class="form-control">
+                                                    <option><%= item[0].status %></option>
+                                                <option>Quoted</option>
+                                                <option>Booked</option>
+                                                <option>Lost</option>
+                                            </select>
+                                        </div>
+                            </div>
                             <div class="panel-info">
                                 <div class="panel-heading">
                                     Project Details
@@ -172,8 +182,8 @@
                                             </select>
                                         </div>
                                         <div class="col-xs-2 col-sm-2 form-group">
-                                            <label for="status">Status</label>
-                                            <textarea name="status" class="form-control" value="<%= item[0].status %>" rows="4" cols="50">
+                                            <label for="comment">Comment</label>
+                                            <textarea name="comment" class="form-control" value="<%= item[0].comment %>" rows="4" cols="50">
                                             </textarea>   
                                         </div>
                                         <div class="col-xs-2 col-sm-2 form-group">

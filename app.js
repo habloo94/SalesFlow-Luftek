@@ -340,9 +340,7 @@ app.get('/enquiry', authenticationMiddleware(), function (req, res) {
   con.query(equery, function (err, result1) {
     if(err) {throw err;}
     else{
-      con.query(equery1, function(err, result2){
-        if(err){throw err;}
-        else{
+      
           res.render('pages/enquiry', {
             siteTitle: siteTitle,
             moment: moment,
@@ -350,14 +348,13 @@ app.get('/enquiry', authenticationMiddleware(), function (req, res) {
             currencyFormatter: currencyFormatter,
             pageTitle: "Enquiry List",
             items: result1,
-            order:result2,
+            items1: result1[0].status,
             user : req.user
           });
+          
         }
       });
-    } 
   });
-});
 
 //SALES ORDER
 
@@ -451,8 +448,10 @@ app.post('/addenquiry', function (req, res) {
     res.redirect(baseURL);
   });
 });
+//Move to PO
 
 app.post('/addorder', function (req, res) {
+  
   var query = "INSERT INTO `salesorder_b`(job_ref, order_date, project, customer, sales_per, po_num, po_date, qty, amount,  discount, advance_amt,  deli_date, pay_term, lead_time, remarks) VALUES (";
   query += " '" + req.body.job_ref + "',";
   query += " '" + req.body.order_date + "',";
@@ -470,7 +469,13 @@ app.post('/addorder', function (req, res) {
   query += " '" + req.body.lead_time + "',";
   query += " '" + req.body.remarks + "')";
   con.query(query, function (err, result) {
-    res.redirect(baseorderURL);
+    if(err) {throw err;}
+    else{
+con.query("UPDATE `salesflow`.`enquiries` SET `status`='Booked' WHERE `job_ref`='"+ req.body.job_ref +"'; ", function(err, result1){
+  if(result1){res.redirect(baseorderURL);}
+});
+    }
+    
   });
 });
 
@@ -571,7 +576,7 @@ app.post('/revenquiry/:id', authenticationMiddleware(), function (req, res) {
 
 
 app.post('/editenquiry/:id', function (req, res) {
-  con.query("UPDATE enquiries SET  project = ?, location = ? , project_type = ? , consultant = ? , contractor = ? , client = ? , customer_type = ? , customer = ? , contact_per = ? , contact_num = ? , product = ? , qty = ? , amount = ? , reci_date = ? , sent_date = ? , sales_per = ? , app_engg = ? , status = ? , offer_file = ? , tds_file = ? WHERE job_ref = ? ", [req.body.project, req.body.location, req.body.project_type, req.body.consultant, req.body.contractor, req.body.client, req.body.customer_type, req.body.customer, req.body.contact_per, req.body.contact_num, req.body.product, req.body.qty, req.body.amount, req.body.reci_date, req.body.sent_date, req.body.sales_per, req.body.app_engg, req.body.status, req.body.offer_file, req.body.tds_file, req.params.id], function (err, result) {
+  con.query("UPDATE enquiries SET  project = ?, location = ? , project_type = ? , consultant = ? , contractor = ? , client = ? , customer_type = ? , customer = ? , contact_per = ? , contact_num = ? , product = ? , qty = ? , amount = ? , reci_date = ? , sent_date = ? , sales_per = ? , app_engg = ? , comment = ? , status = ? , offer_file = ? , tds_file = ? WHERE job_ref = ? ", [req.body.project, req.body.location, req.body.project_type, req.body.consultant, req.body.contractor, req.body.client, req.body.customer_type, req.body.customer, req.body.contact_per, req.body.contact_num, req.body.product, req.body.qty, req.body.amount, req.body.reci_date, req.body.sent_date, req.body.sales_per, req.body.app_engg, req.body.comment, req.body.status, req.body.offer_file, req.body.tds_file, req.params.id], function (err, result) {
     if (result) { res.redirect(baseURL); }
     else { console.log(err); }
   });

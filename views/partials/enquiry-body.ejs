@@ -42,7 +42,7 @@
                                     <th>Amount</th>
                                     <th>Date</th>
                                     <th>Sales Person</th>
-                                    <th class="hidden">Status</th>
+                                    <th >Status</th>
                                     <th ><i class=" fa fa-gear"></i></th>
                                 </tr>
                             </thead>
@@ -59,14 +59,22 @@
                                                 <td><%= currencyFormatter.format(item.amount, { code: 'INR' }); %></td>
                                                 <td><%= moment(item.reci_date).format('DD-MMM-YY'); %></td>
                                                 <td><%= item.sales_per %></td>
-                                                <td class="hidden"><%= item.status %></td>
-                                                
-                                                    <td >
-                                                        <a href="/editenquiry/<%= item.job_ref %>" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                                                            <a href="/viewenquiry/<%= item.job_ref %>" class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></a>
-                                                            <a href="/revenquiry/<%= item.job_ref %>" class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></a>
-                                                            <a href="/booking/<%= item.job_ref %>" class="btn btn-success btn-circle"><i class="fa fa-check"></i></a>
-                                                        </td>
+                                                <td ><%= item.status %></td>
+                                                <% if(item.status=="Booked"){ %>
+                                                            <td >
+                                                                    <a href="/editenquiry/<%= item.job_ref %>" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
+                                                                        <a href="/viewenquiry/<%= item.job_ref %>" class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></a>
+                                                                        <a href="/revenquiry/<%= item.job_ref %>" class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></a>
+                                                                        <a href="/booking/<%= item.job_ref %>" class="btn btn-success btn-circle disabled "><i class="fa fa-check"></i></a>
+                                                                    </td>
+                                                                 <% } else { %>
+                                                                    <td >
+                                                                            <a href="/editenquiry/<%= item.job_ref %>" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
+                                                                                <a href="/viewenquiry/<%= item.job_ref %>" class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></a>
+                                                                                <a href="/revenquiry/<%= item.job_ref %>" class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></a>
+                                                                                <a href="/booking/<%= item.job_ref %>" class="btn btn-danger btn-circle "><i class="fa fa-check"></i></a>
+                                                                            </td>    
+                                                                    <% } %>      
                                                        
                                             </tr>
                                             <% }); %>
