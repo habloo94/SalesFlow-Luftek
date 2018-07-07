@@ -20,50 +20,88 @@
                                 <h4>
                                 Sales Order List</h4>
                             </div>
-                            <div class="col-sm-4"><h4 align="right">Net Booking Value : <%= currencyFormatter.format(sales, { code: 'INR' }); %></h4></div>
+                            <% if(user.user_data.office == "Factory" && user.user_data.control == "child" ){ %> <%} else {%>
+                            <% if(user.user_id=="Azeem") { %>
+                            <div class="col-sm-4">
+                                <table style="float:right;">
+                                    <tr>
+                                        
+                                        <td><h4 id="bvalue" align="right">Net Booking Value:  <%= currencyFormatter.format(salesa, { code: 'INR' }); %></h4></td>
+                                    </tr>
+                                </table> 
+                            </div>
+                            <% } else {%>
+                                <div class="col-sm-4">
+                                        <table style="float:right;">
+                                            <tr>
+                                                <td><h4><select id="bvalue_select" onchange="myFunction()">
+                                                        <option value="Total">Total
+                                                        <option value="Azeem">Azeem
+                                                        <option value="Suresh M">Suresh M
+                                                        <option value="Factory">Factory
+                                                </select></h4></td>
+                                                <td><h4 id="bvalue" align="right">Net Booking Value:  <%= currencyFormatter.format(salest, { code: 'INR' }); %></h4></td>
+                                            </tr>
+                                        </table> 
+                                    </div>
+                                <% } %>
+                                <% } %>
                         </div>
                             
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         
-                        <table width="100%" class="table table-bordered table-hover" id="enquiry_table">
+                        <table width="100%" class="table table-bordered table-hover table-striped" id="enquiry_table">
                             <thead>
                                 <tr>
                                     <th>SO#</th>   
                                     <th>Job#</th>
+                                    <th>PO#</th>
                                     <th>Project</th>
                                     <th>Customer</th>
                                     <th>Qty</th>
                                     <th>Amount</th>
-                                    <th>PO#</th>
                                     <th>PO Date</th>
                                     <th>ED Date</th>
                                     <th>Booked by</th>
-                                    <th ><i class=" fa fa-gear"></i></th>
                                 </tr>
                             </thead>
-                            
+                            <% if(user.user_id=="Azeem") { %>
                             <tbody class="table-bordered">
-                                    <% items.forEach(function(item){ %>
+                                    <% azeitems.forEach(function(azeitem){ %>
                                         <tr>
-                                                <td>LK/<%= moment(item.po_date).format('YY'); %>/<%= item.job_ref %></td>
-                                                <td><%= item.job_ref %></td>
-                                                <td><%= item.project %></td>
-                                                <td><%= item.customer %></td>
-                                                <td><%= item.qty %></td> 
-                                                <td><%= currencyFormatter.format(item.amount, { code: 'INR' }); %></td>
-                                                <td><%= item.po_num %></td>
-                                                <td><%= moment(item.po_date).format('DD-MMM-YY'); %></td>
-                                                <td><%= moment(item.deli_date).format('DD-MMM-YY'); %></td>
-                                                <td><%= item.sales_per %></td>                                                <td >
-                                                    <a href="/editorder/<%= item.job_ref %>" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                                                    <a href="/vieworder/<%= item.job_ref %>" class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></a>
-                                                </td>
+                                                <td><a href="/vieworder/<%= azeitem.job_ref %>" class="btn btn-primary">LK/<%= moment(azeitem.order_date).format('YY'); %>/<%= azeitem.job_ref %></a></td>
+                                                <td><%= azeitem.job_ref %></td>
+                                                <td><%= moment(azeitem.order_date).format('DD-MMM-YY'); %></td>
+                                                <td><%= azeitem.project %></td>
+                                                <td><%= azeitem.customer %></td>
+                                                <td><%= azeitem.qty %></td> 
+                                                <td><%= currencyFormatter.format(azeitem.amount, { code: 'INR' }); %></td>
+                                                <td><%= moment(azeitem.po_date).format('DD-MMM-YY'); %></td>
+                                                <td><%= moment(azeitem.deli_date).format('DD-MMM-YY'); %></td>
+                                                <td><%= azeitem.sales_per %></td>                                                
                                             </tr>
                                             <% }); %>
                             </tbody>
-                            
+                            <% } else { %>
+                                <tbody class="table-bordered">
+                                        <% items.forEach(function(item){ %>
+                                            <tr>
+                                                    <td><a href="/vieworder/<%= item.job_ref %>" class="btn btn-primary">LK/<%= moment(item.po_date).format('YY'); %>/<%= item.job_ref %></a></td>
+                                                    <td><%= item.job_ref %></td>
+                                                    <td><%= moment(item.order_date).format('DD-MMM-YY'); %></td>
+                                                    <td><%= item.project %></td>
+                                                    <td><%= item.customer %></td>
+                                                    <td><%= item.qty %></td> 
+                                                    <td><%= currencyFormatter.format(item.amount, { code: 'INR' }); %></td>
+                                                    <td><%= moment(item.po_date).format('DD-MMM-YY'); %></td>
+                                                    <td><%= moment(item.deli_date).format('DD-MMM-YY'); %></td>
+                                                    <td><%= item.sales_per %></td>                                                
+                                                </tr>
+                                                <% }); %>
+                                </tbody>
+                                <% } %>  
                         </table>
                         
                             

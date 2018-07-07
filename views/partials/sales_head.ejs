@@ -5,7 +5,7 @@
 <meta name="author" content="">
 <title>Luftek - SalesFlow</title>
 <!-- Bootstrap Core CSS -->
-<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" >
+<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <!-- MetisMenu CSS -->
 <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet" type="text/html">
 <!-- DataTables CSS -->
@@ -29,8 +29,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="/vendor/jquery/jquery.min.js" type="text/html"></script>
 <!-- Bootstrap Core JavaScript -->
-<script src="/vendor/bootstrap/js/bootstrap.min.js" type="text/JavaScript"></script>
-
+<script src="/vendor/bootstrap/js/bootstrap.min.js" type="text/html"></script>
 <!-- Metis Menu Plugin JavaScript -->
 <script src="/vendor/metisMenu/metisMenu.min.js" type="text/html"></script>
 <!-- Morris Charts JavaScript -->
@@ -47,13 +46,29 @@
         $(document).ready(function () {
             var table = $('#enquiry_table').DataTable({
                 responsive: true,
-                "order": [[ 0, "desc" ]]
+                "order": [[ 2, "asc" ]]
             });
         });
     </script>
-    
-    
+    <script>
+            function myFunction() {
+                var x = document.getElementById("bvalue_select").value;
+                if(x=="Total"){
+                    document.getElementById("bvalue").innerHTML = "Net Booking Value:  <%= currencyFormatter.format(salest, { code: 'INR' }); %>" ;
+                } else if(x=="Azeem"){
+                    document.getElementById("bvalue").innerHTML = "Net Booking Value:  <%= currencyFormatter.format(salesa, { code: 'INR' }); %>" ;
+                } else if(x=="Suresh M"){
+                    document.getElementById("bvalue").innerHTML = "Net Booking Value:  <%= currencyFormatter.format(saless, { code: 'INR' }); %>" ;
+                } else if(x=="Factory"){
+                    document.getElementById("bvalue").innerHTML = "Net Booking Value:  <%= currencyFormatter.format(salesf, { code: 'INR' }); %>" ;
+                }
+                
+            }
+            </script>
+<script>
+    var d = new Date();
+    document.getElementById("todaydate").innerHTML = d;
+</script>
 <!-- Custom Theme JavaScript -->
 <script src="/js/sb-admin-2.js" type="text/html"></script>
-<script src="/dist/js/sb-admin-2.js" type="text/html"></script>
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->

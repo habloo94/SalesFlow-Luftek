@@ -29,7 +29,7 @@
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         
-                        <table width="100%" class="table table-bordered table-hover" id="enquiry_table">
+                        <table width="100%" class="table table-bordered table-hover table-striped" id="enquiry_table">
                             <thead>
                                 <tr>
                                         
@@ -43,15 +43,26 @@
                                     <th>Date</th>
                                     <th>Sales Person</th>
                                     <th >Status</th>
-                                    <th ><i class=" fa fa-gear"></i></th>
+                                    
                                 </tr>
                             </thead>
                             
                             <tbody class="table-bordered">
                                 
                                     <% items.forEach(function(item){ %>
+                                        
                                         <tr>
-                                                <td><%= item.job_ref %></td>
+                                                <td><% if(item.status=="Booked"){ %>
+                                                    <a href="/viewenquiry/<%= item.job_ref %>" class="btn btn-success"><%= item.job_ref %></a>
+                                                    <% } else if(item.status=="Quoted") { %>
+                                                        <a href="/viewenquiry/<%= item.job_ref %>" class="btn btn-info"><%= item.job_ref %></a>
+                                                            
+                                                            <% } else if(item.status=="Lost") { %> 
+                                                                <a href="/viewenquiry/<%= item.job_ref %>" class="btn btn-default"><%= item.job_ref %></a>
+                                                                <% } else if(item.status=="Processing") { %> 
+                                                                    <a href="/viewenquiry/<%= item.job_ref %>" class="btn btn-outline btn-info"><%= item.job_ref %></a>
+                                                                <% } %>
+                                                </td>
                                                 <td><%= item.project %></td>
                                                 <td class="hidden"><%= item.location %></td>
                                                 <td><%= item.customer %></td>
@@ -60,21 +71,7 @@
                                                 <td><%= moment(item.reci_date).format('DD-MMM-YY'); %></td>
                                                 <td><%= item.sales_per %></td>
                                                 <td ><%= item.status %></td>
-                                                <% if(item.status=="Booked"){ %>
-                                                            <td >
-                                                                    <a href="/editenquiry/<%= item.job_ref %>" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                                                                        <a href="/viewenquiry/<%= item.job_ref %>" class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></a>
-                                                                        <a href="/revenquiry/<%= item.job_ref %>" class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></a>
-                                                                        <a href="/booking/<%= item.job_ref %>" class="btn btn-success btn-circle disabled "><i class="fa fa-check"></i></a>
-                                                                    </td>
-                                                                 <% } else { %>
-                                                                    <td >
-                                                                            <a href="/editenquiry/<%= item.job_ref %>" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                                                                                <a href="/viewenquiry/<%= item.job_ref %>" class="btn btn-info btn-circle"><i class="fa fa-file-text"></i></a>
-                                                                                <a href="/revenquiry/<%= item.job_ref %>" class="btn btn-warning btn-circle"><i class="fa fa-pencil"></i></a>
-                                                                                <a href="/booking/<%= item.job_ref %>" class="btn btn-danger btn-circle "><i class="fa fa-check"></i></a>
-                                                                            </td>    
-                                                                    <% } %>      
+                                                  
                                                        
                                             </tr>
                                             <% }); %>
